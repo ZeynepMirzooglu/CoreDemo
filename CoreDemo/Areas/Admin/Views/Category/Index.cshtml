@@ -1,0 +1,42 @@
+﻿@using EntityLayer.Concrete
+@using X.PagedList
+@using X.PagedList.Mvc.Core
+
+@model IPagedList<Category>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+<h1>Kategori Listesi</h1>
+<table class="table table-bordered">
+    <tr>
+        <th>#</th>
+        <th>Kategori Adı</th>
+        <th>Pasifleştir</th>
+        <th>Aktifleştir</th>
+        <th>Düzenle</th>
+    </tr>
+
+
+@foreach (var item in Model)
+{
+    <tr>
+        <th>@item.CategoryId</th>
+        <td>@item.CategoryName</td>
+            <td>
+                <a href="/Admin/Category/DeleteCategory/@item.CategoryId"
+            id="DeleteBtn" 
+            onClick="return confirm('Silmek istediğinize emin misiniz?')" class="btn btn-danger">Pasifleştir</a></td>
+
+        <td><a href="#" class="btn btn-warning">Aktifleştir</a></td>
+        <td><a href="#" class="btn btn-success">Düzenle</a></td>
+
+    </tr>
+}
+</table>
+
+<a href="/Admin/Category/AddCategory/" class="btn btn-primary">Yeni Kategori Ekle</a>
+<br />
+<br />
+@Html.PagedListPager((IPagedList)Model,page=>Url.Action("Index",new{page}))
