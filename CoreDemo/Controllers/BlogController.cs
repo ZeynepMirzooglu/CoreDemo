@@ -19,12 +19,13 @@ namespace CoreDemo.Controllers
         BlogManager blogManager = new BlogManager(new EfBlogRepository());
         CategoryManager categoryManager = new CategoryManager(new EfCategoryRepository());
         Context context = new Context();
-
+        [AllowAnonymous]
         public IActionResult Index()
         {
             var result=blogManager.GetBlogListWithCategory();
             return View(result);
         }
+        [AllowAnonymous]
         public IActionResult BlogReadAll(int id)
         {
             ViewBag.Id = id;
@@ -33,14 +34,16 @@ namespace CoreDemo.Controllers
         }
         public IActionResult BlogListByWriter()
         {
-            var userMail = User.Identity.Name;
-            var writerId=context.Writers.Where(x=>x.WriterEmail==userMail).Select(y=>y.WriterId).FirstOrDefault();
+            var userName = User.Identity.Name;
+            var userEmail = context.Users.Where(x => x.UserName == userName).Select(x => x.Email).FirstOrDefault();
+            var writerId=context.Writers.Where(x=>x.WriterEmail==userEmail).Select(y=>y.WriterId).FirstOrDefault();
             var values = blogManager.GetListWithCategoryByWriter(writerId);
             return View(values);
         }
         [HttpGet]
         public IActionResult BlogAdd()
         {
+            
             List<SelectListItem> categories = (from x in categoryManager.GetAllList()
                                                select new SelectListItem
                                                {
@@ -55,8 +58,9 @@ namespace CoreDemo.Controllers
         {
             BlogValidator blogValidator=new BlogValidator();
             ValidationResult result=blogValidator.Validate(blog);
-            var userMail = User.Identity.Name;
-            var writerId = context.Writers.Where(x => x.WriterEmail == userMail).Select(y => y.WriterId).FirstOrDefault();
+            var userName = User.Identity.Name;
+            var userEmail = context.Users.Where(x => x.UserName == userName).Select(x => x.Email).FirstOrDefault();
+            var writerId = context.Writers.Where(x => x.WriterEmail == userEmail).Select(y => y.WriterId).FirstOrDefault();
             if (result.IsValid)
             {
                 //False yapılarak admine onaylatmak için kod yazılabilir.
@@ -98,8 +102,9 @@ namespace CoreDemo.Controllers
         [HttpPost]
         public IActionResult BlogEdit(Blog blog)
         {
-            var userMail = User.Identity.Name;
-            var writerId = context.Writers.Where(x => x.WriterEmail == userMail).Select(y => y.WriterId).FirstOrDefault();
+            var userName = User.Identity.Name;
+            var userEmail = context.Users.Where(x => x.UserName == userName).Select(x => x.Email).FirstOrDefault();
+            var writerId = context.Writers.Where(x => x.WriterEmail == userEmail).Select(y => y.WriterId).FirstOrDefault();
             blog.WriterId = writerId;
             blog.BlogCreateDate = DateTime.Parse(DateTime.Now.ToShortDateString());
             blog.BlogStatus = true;

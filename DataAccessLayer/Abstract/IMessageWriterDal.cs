@@ -10,7 +10,10 @@ namespace BusinessLayer.Abstract
 {
     public interface IMessageWriterDal:IGenericDal<MessageWriter>
     {
-        List<MessageWriter> GetListWithMessageWriterByWriter(int id);
+        List<MessageWriter> GetInBoxWithMessageWriterByWriter(int id);
+        List<MessageWriter> GetSendBoxWithMessageWriterByWriter(int id);
+
+
 
     }
 }

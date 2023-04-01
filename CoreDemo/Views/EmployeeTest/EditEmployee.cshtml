@@ -1,0 +1,18 @@
+﻿@model CoreDemo.Controllers.ClassEmployee
+@{
+    ViewData["Title"] = "EditEmployee";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+<h1>Çalışan Düzenleme Sayfası(Api)</h1>
+
+<form method="post">
+    <label>Id</label>
+    @Html.TextBoxFor(x=>x.Id,new{@class="form-control"})
+    <br />
+    <label>Adı Soyadı</label>
+    @Html.TextBoxFor(x=>x.Name,new{@class="form-control"})
+    <br />
+    <button class="btn btn-outline-success">Güncelle</button>
+</form>
+

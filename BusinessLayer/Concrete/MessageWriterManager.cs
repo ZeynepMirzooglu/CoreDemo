@@ -33,7 +33,12 @@ namespace BusinessLayer.Concrete
 
         public List<MessageWriter> GetInBoxByWriter(int id)
         {
-            return _messageWriterDal.GetListWithMessageWriterByWriter(id);
+            return _messageWriterDal.GetInBoxWithMessageWriterByWriter(id);
+        }
+
+        public List<MessageWriter> GetSendBoxByWriter(int id)
+        {
+            return _messageWriterDal.GetSendBoxWithMessageWriterByWriter(id);
         }
 
         public MessageWriter TGetById(int id)

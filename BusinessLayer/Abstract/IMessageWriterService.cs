@@ -10,6 +10,8 @@ namespace BusinessLayer.Abstract
     public interface IMessageWriterService:IGenericService<MessageWriter>
     {
         List<MessageWriter> GetInBoxByWriter(int id);
-        
+        List<MessageWriter> GetSendBoxByWriter(int id);
+
+
     }
 }

@@ -1,0 +1,22 @@
+﻿@using CoreDemo.Areas.Admin.Models
+@model List<RoleAsSignViewModel>
+@{
+    ViewData["Title"] = "AsSignRole";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+<form class="form-group" method="post">
+    @for (int i = 0 ; i < Model.Count ; i++)
+    {
+        <div class="form-control">
+            <input type="hidden" asp-for="@Model[i].RoleId" />
+            <input type="hidden" asp-for="@Model[i].RoleName" />
+            <input type="checkbox" asp-for="@Model[i].Exists" class="form-check-input" />
+            <label class="form-check-label" for="@Model[i].Exists">@Model[i].RoleName</label>
+        </div>
+    }
+    <br />
+   <button class="btn btn-info">Değişiklikleri Kaydet</button>
+</form>
+
+<a href="/Admin/AdminRole/UserRoleList/" class="btn btn-outline-primary">Rol Listesine Dön</a>

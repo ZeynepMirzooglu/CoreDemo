@@ -20,9 +20,7 @@ namespace CoreDemo.Areas.Admin.ViewComponents.Statistic
             string connection = "https://api.openweathermap.org/data/2.5/weather?q=istanbul&mode=xml&lang=tr&units=metric&appid="+api;
             XDocument document= XDocument.Load(connection);
             ViewBag.temperature = document.Descendants("temperature")
-                .ElementAt(0).Value
-                ;
-         
+                .ElementAt(0).Attribute("value").Value;
             return View();
         }
     }
